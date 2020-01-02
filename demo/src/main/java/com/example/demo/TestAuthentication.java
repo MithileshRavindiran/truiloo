@@ -62,7 +62,8 @@ public class TestAuthentication {
     public void testAuthenticationRest() throws ApiException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("x-trulioo-api-key", "cfffb9d452479019f8f5267bc5994667");
+        //replece key with  proper value
+        headers.add("x-trulioo-api-key", "*********");
         HttpEntity entity = new HttpEntity(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
