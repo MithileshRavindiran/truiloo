@@ -19,7 +19,9 @@ public class WelcomeController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public @ResponseBody  String hello() throws ApiException {
-        testAuthentication.testAuthentication();
+        //testAuthentication.testAuthentication();
+        testAuthentication.testAuthenticationRest();
+
         return "Hello";
     }
 }

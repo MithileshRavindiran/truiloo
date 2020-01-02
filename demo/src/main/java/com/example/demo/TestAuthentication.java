@@ -6,9 +6,7 @@ import com.trulioo.normalizedapi.ApiException;
 import com.trulioo.normalizedapi.api.ConfigurationApi;
 import com.trulioo.normalizedapi.api.ConnectionApi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -64,10 +62,13 @@ public class TestAuthentication {
     public void testAuthenticationRest() throws ApiException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add(HttpHeaders.AUTHORIZATION, "Token " + "apikey");
-        HttpEntity<Void> entity = new HttpEntity<>(null, headers);
+        headers.add("x-trulioo-api-key", "cfffb9d452479019f8f5267bc5994667");
+        HttpEntity entity = new HttpEntity(headers);
 
-        String response = restTemplate.getForObject("https://api.globaldatacompany.com/connection/v1/testauthentication", String.class);
+        ResponseEntity<String> response = restTemplate.exchange(
+                "https://gateway.trulioo.com/trial/connection/v1/testauthentication", HttpMethod.GET, entity, String.class);
+
+        String responseString = response.getBody();
 
     }
 
