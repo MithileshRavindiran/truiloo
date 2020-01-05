@@ -1,10 +1,15 @@
-package com.example.demo;
+package com.example.demo.app;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trulioo.normalizedapi.ApiClient;
+import com.trulioo.normalizedapi.api.ConfigurationApi;
+import com.trulioo.normalizedapi.api.ConnectionApi;
+import com.trulioo.normalizedapi.api.VerificationsApi;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -18,6 +23,39 @@ import org.springframework.web.client.RestTemplate;
 @Getter
 @Setter
 public class ProjectConfiguration {
+
+
+    @Value("${basepath}")
+    String basePath;
+
+    @Value("${apikey}")
+    String apiKey;
+
+    @Bean
+    public ApiClient apiClient() {
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(basePath);
+        apiClient.setApiKey(apiKey);
+        return apiClient;
+    }
+
+    @Bean
+    public ConnectionApi connectionApi() {
+        ConnectionApi connectionApi = new ConnectionApi(apiClient());
+        return connectionApi;
+    }
+
+    @Bean(name = "truilooConfigApi")
+    public ConfigurationApi configurationApi() {
+        ConfigurationApi configurationApi = new ConfigurationApi(apiClient());
+        return configurationApi;
+    }
+
+    @Bean
+    public VerificationsApi verificationsApi() {
+        VerificationsApi verificationsApi = new VerificationsApi(apiClient());
+        return verificationsApi;
+    }
 
 
     @Bean(name = "restTemplate")

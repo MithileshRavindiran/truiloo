@@ -1,9 +1,8 @@
-package com.example.demo;
+package com.example.demo.app;
 
 import com.trulioo.normalizedapi.ApiCallback;
 import com.trulioo.normalizedapi.ApiClient;
 import com.trulioo.normalizedapi.ApiException;
-import com.trulioo.normalizedapi.api.ConfigurationApi;
 import com.trulioo.normalizedapi.api.ConnectionApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -63,7 +62,7 @@ public class TestAuthentication {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         //replece key with  proper value
-        headers.add("x-trulioo-api-key", "*********");
+        headers.add("x-trulioo-api-key", "********");
         HttpEntity entity = new HttpEntity(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
